@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>CMB Immobilien | Bürobildschirm</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>
+@font-face { font-family: "Tenor Sans"; src: url("assets/fonts/tenor-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Montserrat"; src: url("assets/fonts/montserrat-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; background: #2f3437; overflow: hidden; cursor: none; }
+body { font-family: "Montserrat", "Segoe UI", Arial, sans-serif; color: #fff; }
+#stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; background: #2f3437; overflow: hidden; }
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease; display: flex; }
+.slide.an { opacity: 1; z-index: 2; }
+.serif { font-family: "Tenor Sans", "Helvetica Neue", Arial, sans-serif; text-transform: uppercase; letter-spacing: .08em; font-weight: 400; }
+.foto { position: relative; flex: 0 0 1160px; height: 1080px; background: #3b4144 center/cover no-repeat; overflow: hidden; }
+.foto img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.04); transition: transform 12s linear; }
+.slide.an .foto img { transform: scale(1.12); }
+.info { flex: 1; padding: 110px 80px 150px 80px; display: flex; flex-direction: column; justify-content: center; background: #2f3437; }
+.badge { align-self: flex-start; background: #aacd4d; color: #2f3437; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 30px; padding: 14px 32px; margin-bottom: 44px; }
+.info .ort { font-size: 56px; line-height: 1.1; margin-bottom: 26px; }
+.info .titel { font-size: 38px; line-height: 1.35; color: #dfe3e5; margin-bottom: 40px; font-weight: 300; }
+.fakten { display: flex; gap: 40px; flex-wrap: wrap; font-size: 36px; color: #fff; margin-bottom: 44px; font-weight: 500; }
+.fakten span { padding-right: 40px; border-right: 3px solid #aacd4d; }
+.fakten span:last-child { border: 0; padding: 0; }
+.preis { font-size: 92px; font-weight: 600; color: #aacd4d; line-height: 1; }
+.preis small { display: block; font-size: 28px; font-weight: 400; color: #cfd4d6; letter-spacing: .1em; text-transform: uppercase; margin-top: 14px; }
+.alt { font-size: 34px; color: #cfd4d6; text-decoration: line-through; margin-bottom: 8px; }
+.intro-text { font-size: 34px; line-height: 1.5; color: #dfe3e5; font-weight: 300; max-width: 640px; }
+.leiste { position: absolute; left: 0; right: 0; bottom: 0; height: 100px; background: #aacd4d; color: #2f3437; display: flex; align-items: center; justify-content: space-between; padding: 0 70px; z-index: 5; font-size: 32px; font-weight: 600; letter-spacing: .04em; }
+.leiste img { height: 50px; width: auto; display: block; }
+.leiste .logo-w { filter: brightness(0) saturate(100%) invert(18%) sepia(8%) saturate(500%) hue-rotate(160deg); }
+.mitte { width: 100%; padding: 120px 140px 180px; display: flex; flex-direction: column; justify-content: center; }
+.intro { background: #2f3437 url("assets/video/buero.jpg") center/cover; position: relative; }
+.intro::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(47,52,55,.94), rgba(47,52,55,.72)); }
+.intro .mitte { position: relative; }
+.intro h1 { font-size: 120px; line-height: 1.12; max-width: 1400px; margin: 40px 0 36px; }
+.intro p { font-size: 44px; letter-spacing: .12em; text-transform: uppercase; color: #aacd4d; font-weight: 600; }
+.intro .logo-gross { width: 760px; height: auto; }
+.video { background: #000; }
+.video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.video::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(47,52,55,.0) 55%, rgba(47,52,55,.75)); }
+.video .cap { position: absolute; left: 90px; bottom: 150px; z-index: 3; font-size: 76px; }
+.team { background: #f4f6ee; color: #2f3437; }
+.team .foto { flex: 0 0 1100px; }
+.team .info { background: #f4f6ee; color: #2f3437; }
+.team h2 { font-size: 78px; line-height: 1.15; margin-bottom: 40px; }
+.team .namen { font-size: 40px; line-height: 1.7; }
+.team .namen b { font-weight: 600; }
+.kontakt { background: #aacd4d; color: #2f3437; }
+.kontakt .mitte { padding-bottom: 160px; }
+.kontakt h2 { font-size: 110px; line-height: 1.12; margin-bottom: 60px; color: #2f3437; }
+.kontakt .zeilen { font-size: 52px; line-height: 1.55; font-weight: 500; }
+.kontakt .tel { font-size: 96px; font-weight: 700; margin: 10px 0 24px; letter-spacing: .03em; }
+.kontakt .zeiten { margin-top: 28px; font-size: 44px; font-weight: 400; }
+.kontakt .leiste { background: #2f3437; color: #fff; }
+.kontakt .leiste .logo-w { filter: none; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+(function () {
+  "use strict";
+  var SEKUNDEN = 11;                 /* Anzeigedauer pro Folie */
+  var NEUSTART_MIN = 45;             /* Seite lädt sich regelmäßig neu, damit neue Angebote erscheinen */
+  var TEL = "0 21 04 - 17 50 52", MAIL = "info@cmb-immobilien.com";
+  var EINGEBAUT = {"objekte": [{"id": "c1c92e72-99e8-4dba-bb66-506f6afecf92", "vermarktung": "kauf", "titel": "Terrassenwohnung zum Kauf", "preis": 199000, "preisAlt": 210000, "preisart": "Kaufpreis", "zimmer": 3, "wohnflaeche": 74.2, "geschoss": "2/3", "verfuegbar": "frei ab sofort", "adresse": "Magdeburger Straße 2 a", "plz": "40822", "ort": "Mettmann", "bild": "assets/img/objekte/c1c92e72-99e8-4dba-bb66-506f6afecf92.jpg", "immoweltUrl": "https://www.immowelt.de/expose/c1c92e72-99e8-4dba-bb66-506f6afecf92", "bildQuelle": "https://mms.immowelt.de/1/1/c/2/11c25de7-4a38-4f53-9717-8239c995b0cd.jpg"}, {"id": "9f14f427-0525-4ff0-9895-4afffcbcea4f", "vermarktung": "kauf", "titel": "Penthouse zum Kauf", "status": "Neu", "preis": 374000, "preisart": "Kaufpreis", "zimmer": 3, "wohnflaeche": 78.5, "geschoss": "5/5", "adresse": "Lindemannstraße 6", "stadtteil": "Mitte", "plz": "44137", "ort": "Dortmund", "bild": "assets/img/objekte/9f14f427-0525-4ff0-9895-4afffcbcea4f.jpg", "immoweltUrl": "https://www.immowelt.de/expose/9f14f427-0525-4ff0-9895-4afffcbcea4f", "bildQuelle": "https://mms.immowelt.de/3/b/e/c/3bec4f56-d2f0-44f2-8960-ebf566c7729a.jpg"}, {"id": "cf1c00d0-13ae-45be-abe6-38a7a6c4d0a1", "vermarktung": "kauf", "titel": "Mehrfamilienhaus zum Kauf", "zusatz": "als Kapitalanlage geeignet", "preis": 370000, "preisAlt": 395000, "preisart": "Kaufpreis", "zimmer": 9, "wohnflaeche": 262, "grundstueck": 222, "adresse": "Rathausstraße 11", "stadtteil": "Höhscheid", "plz": "42659", "ort": "Solingen", "bild": "assets/img/objekte/cf1c00d0-13ae-45be-abe6-38a7a6c4d0a1.jpg", "immoweltUrl": "https://www.immowelt.de/expose/cf1c00d0-13ae-45be-abe6-38a7a6c4d0a1", "bildQuelle": "https://mms.immowelt.de/6/3/4/1/6341add9-1248-481c-a660-d64915fbce4e.jpg"}, {"id": "7e170c60-36f3-47e5-b9ee-a3244d3decc3", "vermarktung": "kauf", "titel": "Wohnung zum Kauf", "preis": 231500, "preisart": "Kaufpreis", "zimmer": 2, "wohnflaeche": 55.5, "geschoss": "4/5", "verfuegbar": "frei ab sofort", "adresse": "Kölner Straße 338", "stadtteil": "Oberbilk", "plz": "40227", "ort": "Düsseldorf", "bild": "assets/img/objekte/7e170c60-36f3-47e5-b9ee-a3244d3decc3.jpg", "immoweltUrl": "https://www.immowelt.de/expose/7e170c60-36f3-47e5-b9ee-a3244d3decc3", "bildQuelle": "https://mms.immowelt.de/c/8/c/2/c8c23988-d9c6-4ba2-95fa-274ab2b66f6d.jpg"}, {"id": "ca891b49-d088-440d-968b-3369a076f68c", "vermarktung": "kauf", "titel": "Wohnung zum Kauf", "preis": 231500, "preisart": "Kaufpreis", "zimmer": 2, "wohnflaeche": 55.5, "geschoss": "4/5", "verfuegbar": "frei ab sofort", "adresse": "Kölner Straße 338", "stadtteil": "Oberbilk", "plz": "40227", "ort": "Düsseldorf", "pruefen": "Gleiche Angaben wie das vorherige Objekt, aber eigene Objektseite und eigenes Bild. Bitte beim Kunden prüfen.", "bild": "assets/img/objekte/ca891b49-d088-440d-968b-3369a076f68c.jpg", "immoweltUrl": "https://www.immowelt.de/expose/ca891b49-d088-440d-968b-3369a076f68c", "bildQuelle": "https://mms.immowelt.de/c/8/5/a/c85a1727-3dbf-45ae-90db-4cdc47cef4a7.jpg"}, {"id": "bd00e23b-0c68-4db7-ae4a-7ab8d997e37b", "vermarktung": "kauf", "titel": "Wohnung zum Kauf", "preis": 240000, "preisart": "Kaufpreis", "zimmer": 2, "wohnflaeche": 64.8, "geschoss": "3/5", "verfuegbar": "frei ab sofort", "adresse": "Kölner Straße 338", "stadtteil": "Oberbilk", "plz": "40227", "ort": "Düsseldorf", "bild": "assets/img/objekte/bd00e23b-0c68-4db7-ae4a-7ab8d997e37b.jpg", "immoweltUrl": "https://www.immowelt.de/expose/bd00e23b-0c68-4db7-ae4a-7ab8d997e37b", "bildQuelle": "https://mms.immowelt.de/0/5/e/8/05e82aa3-ffd9-4e5c-acff-06be795d57fd.jpg"}, {"id": "cbfa95fa-4f32-43af-bca0-4187faeb4c38", "vermarktung": "miete", "titel": "Wohnung zur Miete", "status": "Neu", "preis": 375, "preisart": "Kaltmiete", "zimmer": 2.5, "wohnflaeche": 44, "geschoss": "2/2", "verfuegbar": "frei ab sofort", "adresse": "Deusberg 11", "stadtteil": "Ohligs-Aufderhöhe", "plz": "42697", "ort": "Solingen", "bild": "assets/img/objekte/cbfa95fa-4f32-43af-bca0-4187faeb4c38.jpg", "immoweltUrl": "https://www.immowelt.de/expose/cbfa95fa-4f32-43af-bca0-4187faeb4c38", "bildQuelle": "https://mms.immowelt.de/f/c/e/5/fce59b35-c3d0-469a-a60c-acfe8ee364f1.jpg"}, {"id": "de921903-0b86-4a2d-bf10-5d005a31802d", "vermarktung": "miete", "titel": "Sonstiges zur Miete", "preis": 1700, "preisart": "Kaltmiete", "adresse": "Werth 78", "stadtteil": "Barmen", "plz": "42275", "ort": "Wuppertal", "bild": "assets/img/objekte/de921903-0b86-4a2d-bf10-5d005a31802d.jpg", "immoweltUrl": "https://www.immowelt.de/expose/de921903-0b86-4a2d-bf10-5d005a31802d", "bildQuelle": "https://mms.immowelt.de/6/e/d/d/6eddc2c5-49db-4814-95dd-eeff91fa29ea.jpg"}, {"id": "dd60b6b8-d771-483e-afe4-aef00bdf5d55", "vermarktung": "miete", "titel": "Wohnung zur Miete", "status": "Neu", "preis": 795, "preisart": "Kaltmiete", "zimmer": 3.5, "wohnflaeche": 92, "geschoss": "1/2", "verfuegbar": "frei ab sofort", "adresse": "Rathausstraße 11", "stadtteil": "Höhscheid", "plz": "42659", "ort": "Solingen", "bild": "assets/img/objekte/dd60b6b8-d771-483e-afe4-aef00bdf5d55.jpg", "immoweltUrl": "https://www.immowelt.de/expose/dd60b6b8-d771-483e-afe4-aef00bdf5d55", "bildQuelle": "https://mms.immowelt.de/d/7/d/8/d7d89105-4451-4538-8768-257a4b159ba0.jpg"}, {"id": "6ec44cd3-4312-44a1-a7c7-3c57994d34e7", "vermarktung": "miete", "titel": "Terrassenwohnung zur Miete", "preis": 1700, "preisart": "Kaltmiete", "zimmer": 2.5, "wohnflaeche": 173.7, "geschoss": "1/4", "adresse": "Werth 78", "stadtteil": "Barmen", "plz": "42275", "ort": "Wuppertal", "bild": "assets/img/objekte/6ec44cd3-4312-44a1-a7c7-3c57994d34e7.jpg", "immoweltUrl": "https://www.immowelt.de/expose/6ec44cd3-4312-44a1-a7c7-3c57994d34e7", "bildQuelle": "https://mms.immowelt.de/2/5/3/7/253720e1-aeb4-4659-ab3e-b72ca50bf205.jpg"}, {"id": "eaf284c9-3c8c-4f79-b36a-fad452ad7c66", "vermarktung": "miete", "titel": "Bürofläche zur Miete", "preis": null, "preisart": "Mietkosten auf Anfrage", "gewerbeflaeche": "200 m², teilbar von 11 m² bis 200 m²", "stadtteil": "Solingen-Mitte", "plz": "42651", "ort": "Solingen", "bild": "assets/img/objekte/eaf284c9-3c8c-4f79-b36a-fad452ad7c66.jpg", "immoweltUrl": "https://www.immowelt.de/expose/eaf284c9-3c8c-4f79-b36a-fad452ad7c66", "bildQuelle": "https://mms.immowelt.de/7/7/0/d/770d1ee4-19a4-4f26-b03e-e39bf1a135e7.jpg"}], "referenzen": [{"art": "vermietet", "titel": "Exklusive Maisonette mit Garten", "ort": "Düsseldorf-Kaiserswerth", "kurz": "3 Zimmer · ca. 107 m²", "bild": "assets/img/referenzen/kaiserswerth/cover.jpg", "intro": "Eleganz trifft Wohnkultur: Wohnen mit Stil, Komfort und eigenem Garten in einer der begehrten Wohnlagen Düsseldorfs."}, {"art": "vermietet", "titel": "Zwei-Zimmer-Wohnung mit überdachter Terrasse", "ort": "Solingen-Widdert", "kurz": "2 Zimmer · ca. 83 m²", "bild": "assets/img/referenzen/solingen/cover.jpg", "intro": "Naturliebhaber aufgepasst: einziehen, umziehen und einfach wohlfühlen."}, {"art": "vermietet", "titel": "Haus mit Appartementhaus", "ort": "Düsseldorf-Stockum", "kurz": "5 Zimmer · ca. 240 m² · 1.500 m² Grundstück", "bild": "assets/img/referenzen/stockum/cover.jpg", "intro": "Privatsphäre, Komfort und Design: ein Haus für höchste Ansprüche."}, {"art": "vermietet", "titel": "Wohn- und Gewerbeeinheiten in zentraler Lage", "ort": "Wuppertal", "kurz": "2 Einheiten · 3 bis 6 Zimmer", "bild": "assets/img/referenzen/wuppertal/cover.jpg", "intro": "Zentral, flexibel, großzügig: repräsentative Einheiten in erstklassiger Stadtlage."}, {"art": "verkauft", "titel": "Helle 3-Zimmer-Wohnung mit Loggia", "ort": "Meerbusch-Büderich", "kurz": "3 Zimmer · ca. 85 m²", "bild": "assets/img/referenzen/meerbusch/cover.jpg", "intro": "Wohnkomfort in einer Traditionsadresse vor den Toren Düsseldorfs."}, {"art": "verkauft", "titel": "Stilvolle Wohnung mit Loggia und Stellplatz", "ort": "Mettmann", "kurz": "2 Zimmer · ca. 58 m²", "bild": "assets/img/referenzen/mettmann/cover.jpg", "intro": "Einziehen und ankommen: modernisiert, hell und zentral gelegen."}, {"art": "verkauft", "titel": "4-Zimmer-Wohnung mit Sonnenbalkon", "ort": "Nörvenich-Wissersheim", "kurz": "4 Zimmer · ca. 104 m²", "bild": "assets/img/referenzen/noervenich/cover.jpg", "intro": "Gepflegtes Wohnen im Grünen mit großem Balkon und Blick auf Wiesen und Felder."}, {"art": "verkauft", "titel": "Kernsaniertes Zweifamilienhaus mit Garten", "ort": "Solingen-Ohligs", "kurz": "6 Zimmer · ca. 181 m² · 693 m² Grundstück", "bild": "assets/img/referenzen/solingen-verkauf/cover.jpg", "intro": "Ein Haus für jede Nutzungsidee: Familie, Mehrgenerationenwohnen oder Wohnen mit Praxis."}]};
+  var stage = document.getElementById("stage");
+
+  function skaliere() {
+    var s = Math.min(innerWidth / 1920, innerHeight / 1080);
+    stage.style.transform = "scale(" + s + ")";
+    stage.style.marginLeft = (-960 * s) + "px"; stage.style.marginTop = (-540 * s) + "px";
+    stage.style.left = "50%"; stage.style.top = "50%"; stage.style.transformOrigin = "0 0";
+    stage.style.transform = "translate(0,0) scale(" + s + ")";
+  }
+  addEventListener("resize", skaliere); skaliere();
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function zahl(n) { return Number(n).toLocaleString("de-DE"); }
+  function leiste() { return '<div class="leiste"><img class="logo-w" src="assets/img/logo-cmb.svg" alt="CMB Immobilien"><span>' + TEL + '&nbsp;&nbsp;·&nbsp;&nbsp;' + MAIL + '</span></div>'; }
+  function foto(src, fb) { return '<div class="foto"><img src="' + esc(src) + '" alt=""' + (fb ? ' data-fb="' + esc(fb) + '"' : "") + '></div>'; }
+
+  function folieAngebot(o) {
+    var art = o.vermarktung === "miete" ? "Zu mieten" : "Zu kaufen";
+    var f = [];
+    if (o.zimmer) { f.push(String(o.zimmer).replace(".", ",") + " Zimmer"); }
+    if (o.wohnflaeche) { f.push("ca. " + String(o.wohnflaeche).replace(".", ",") + " m²"); }
+    var preis = o.preis ? zahl(o.preis) + " €" : "Preis auf Anfrage";
+    var sub = o.preis ? (o.preisart || "") : "";
+    var alt = o.preisAlt ? '<div class="alt">' + zahl(o.preisAlt) + " €</div>" : "";
+    return { dauer: SEKUNDEN, html: foto(o.bild, o.bildQuelle) +
+      '<div class="info"><div class="badge">' + art + (o.status === "Neu" ? " · Neu" : "") + '</div><div class="ort serif">' + esc(o.stadtteil ? o.stadtteil + ", " + o.ort : o.ort) + '</div><div class="titel">' + esc(o.titel) + '</div>' +
+      (f.length ? '<div class="fakten">' + f.map(function (x) { return "<span>" + esc(x) + "</span>"; }).join("") + "</div>" : "") +
+      alt + '<div class="preis">' + preis + (sub ? "<small>" + esc(sub) + "</small>" : "") + "</div></div>" + leiste() };
+  }
+  function folieReferenz(r) {
+    var art = r.art === "verkauft" ? "Erfolgreich verkauft" : "Erfolgreich vermietet";
+    return { dauer: SEKUNDEN, html: foto(r.bild) +
+      '<div class="info"><div class="badge">' + art + '</div><div class="ort serif">' + esc(r.ort) + '</div><div class="titel">' + esc(r.titel) + '</div>' +
+      '<div class="fakten"><span>' + esc(r.kurz) + '</span></div><p class="intro-text">' + esc(r.intro || "") + "</p></div>" + leiste() };
+  }
+  var INTRO = { dauer: 9, klasse: "intro", html: '<div class="mitte"><img class="logo-gross" src="assets/img/logo-cmb.svg" alt="CMB Immobilien"><h1 class="serif">Ihr Makler mit Herz und Verstand</h1><p>Verkauf · Vermietung · Verwaltung</p></div>' };
+  var VIDEO = { dauer: 0, klasse: "video", html: '<video muted playsinline preload="auto" src="assets/video/buero.mp4" poster="assets/video/buero.jpg"></video><div class="cap serif">Willkommen bei CMB</div>' + leiste(), video: true };
+  var TEAM = { dauer: SEKUNDEN, klasse: "team", html: foto("assets/img/team-tisch.jpg") + '<div class="info"><h2 class="serif">Persönlich.<br>Menschlich.<br>Ihr Team.</h2><div class="namen"><b>Ilona Tatura</b> · Inhaberin<br>Renata Teitge · Innendienst<br>Fatlinda Geci · Innendienst<br>Hugo · die rechte Hand der Chefin</div></div>' + leiste() };
+  var KONTAKT = { dauer: 12, klasse: "kontakt", html: '<div class="mitte"><h2 class="serif">Sprechen wir über Ihre Immobilie.</h2><div class="zeilen">Poststraße 16 · 40822 Mettmann<div class="tel">' + TEL + '</div>' + MAIL + '<div class="zeiten">Mo–Fr 11:00–16:00 Uhr · Sa + So nach Vereinbarung</div></div></div>' + leiste() };
+
+  function bauen(objekte, referenzen) {
+    var offen = objekte.filter(function (o) { return o.status !== "verkauft" && o.status !== "vermietet"; });
+    var folien = [INTRO, VIDEO], i = 0;
+    var a = offen.map(folieAngebot), r = referenzen.map(folieReferenz);
+    while (i < Math.max(a.length, r.length)) { if (a[i]) { folien.push(a[i]); } if (r[i]) { folien.push(r[i]); } i++; }
+    folien.push(TEAM, KONTAKT);
+    return folien;
+  }
+
+  function lade(url, fallback) {
+    return fetch(url + "?t=" + Date.now()).then(function (x) { if (!x.ok) { throw 0; } return x.json(); }).catch(function () { return fallback; });
+  }
+
+  Promise.all([lade("data/objekte.json", EINGEBAUT.objekte), lade("data/referenzen.json", EINGEBAUT.referenzen)]).then(function (d) {
+    var objekte = Array.isArray(d[0]) ? d[0] : (d[0].objekte || EINGEBAUT.objekte);
+    var folien = bauen(objekte, d[1]);
+    var els = folien.map(function (f) {
+      var s = document.createElement("section"); s.className = "slide " + (f.klasse || ""); s.innerHTML = f.html; stage.appendChild(s); return s;
+    });
+    document.addEventListener("error", function (e) {
+      var im = e.target; if (!im || im.tagName !== "IMG") { return; }
+      var fb = im.getAttribute("data-fb"); if (fb) { im.removeAttribute("data-fb"); im.src = fb; } else { im.style.display = "none"; }
+    }, true);
+    var n = -1, start = Date.now();
+    function weiter() {
+      if (n >= 0) { els[n].classList.remove("an"); var vo = els[n].querySelector("video"); if (vo) { vo.pause(); } }
+      n = (n + 1) % folien.length;
+      els[n].classList.add("an");
+      var f = folien[n];
+      if (n === 0 && Date.now() - start > NEUSTART_MIN * 60000) { location.reload(); return; }
+      if (f.video) {
+        var v = els[n].querySelector("video"), fertig = false;
+        function ende() { if (!fertig) { fertig = true; weiter(); } }
+        try { v.currentTime = 0; var p = v.play(); if (p && p.catch) { p.catch(function () { setTimeout(ende, 6000); }); } } catch (e) { setTimeout(ende, 6000); }
+        v.onended = ende; setTimeout(ende, 30000);
+      } else { setTimeout(weiter, f.dauer * 1000); }
+    }
+    weiter();
+  });
+})();
+</script>
+</body>
+</html>
